@@ -17,6 +17,13 @@ jobs:
         with:
           java-version: 11
 
+      - name: Login Maven Package
+        run: |
+          sed -i 's/{{GITHUB_TOKEN}}/'${GITHUB_TOKEN}'/g' m2-settings.xml
+          cp m2-settings.xml ~/.m2/settings.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Install
         run: mvn install
 
